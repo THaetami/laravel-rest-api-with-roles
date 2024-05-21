@@ -1,0 +1,661 @@
+{
+	"info": {
+		"_postman_id": "ae23a945-1056-49df-a45d-879a86f584f7",
+		"name": "warung-sederhana",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19373598"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.environment.set('tokenUserCurrent', responseJson.data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{emailAdmin}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/auth/login",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reg Customer",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tatang Haetami\",\r\n    \"phone\": \"082260283289\",\r\n    \"address\": \"Kp. sondol indah\",\r\n    \"email\": \"{{emailCustomer}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/auth/reg/customer",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"reg",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reg  Merchant",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shop_name\": \"Bahrul Shop\",\r\n    \"phone\": \"082260283299\",\r\n    \"address\": \"Kp. kalapa indah\",\r\n    \"email\": \"{{emailMerchant}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/auth/reg/merchant",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"reg",
+								"merchant"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MERCHANT",
+			"item": [
+				{
+					"name": "Admin Get All Merchants",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/merchants",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"merchants"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CUSTOMER",
+			"item": [
+				{
+					"name": "Admin Get All Customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/customers",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.environment.set('tokenUserCurrent', responseJson.data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{emailCustomer}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/auth/login",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PRODUCT",
+			"item": [
+				{
+					"name": "Login Merchant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.environment.set('tokenUserCurrent', responseJson.data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{emailMerchant}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/auth/login",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Merchant Add Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Adem Sari\",\r\n    \"price\": \"24000\",\r\n    \"stock\": \"1000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/products",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Merchant Update Product By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Beras UPdate\",\r\n    \"price\": \"24000\",\r\n    \"stock\": \"50\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/products/1",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All User Get Product By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/products/1",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All User Get All Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "direction",
+									"value": "asc",
+									"type": "text"
+								},
+								{
+									"key": "currentPage",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "pageSize",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "orderBy",
+									"value": "name",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/products",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Merchant Delete Product By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/products/2",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
