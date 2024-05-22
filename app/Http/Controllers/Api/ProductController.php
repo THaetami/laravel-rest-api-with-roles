@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Helpers\JsonResponseHelper;
-use App\Http\Requests\CreateProductRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
@@ -23,6 +23,7 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -36,8 +37,13 @@ class ProductController extends Controller
 
         $products = $this->productService->getAllProducts($direction, $orderBy, $currentPage, $pageSize);
 
-        return JsonResponseHelper::respondSuccess($products, 200);
+        $formattedProducts = $products->map(function ($product) {
+            return $product->formatForApiResponse();
+        });
+
+        return JsonResponseHelper::respondSuccess($formattedProducts, 200);
     }
+
 
     /**
      * @param ProductRequest $request
@@ -81,6 +87,7 @@ class ProductController extends Controller
         return JsonResponseHelper::respondSuccess($product->formatForApiResponse(), 200);
     }
 
+
     /**
      * @param ProductRequest $request
      * @param int $id
@@ -100,8 +107,8 @@ class ProductController extends Controller
             'stock' => $validated['stock'],
         ]);
         return JsonResponseHelper::respondSuccess($product->formatForApiResponse(), 200);
-
     }
+
 
     /**
      * @param Request $request
@@ -116,4 +123,5 @@ class ProductController extends Controller
         $product->delete();
         return JsonResponseHelper::respondSuccess("Product successfully deleted", 200);
     }
+
 }

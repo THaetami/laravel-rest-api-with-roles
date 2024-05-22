@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\JsonResponseHelper;
 use App\Http\Requests\CreateCustomerRequest;
@@ -42,6 +41,7 @@ class AuthController extends Controller
         ], 200);
     }
 
+
     /**
      * @param CreateCustomerRequest $request
      * @return \Illuminate\Http\JsonResponse
@@ -76,6 +76,7 @@ class AuthController extends Controller
         }
     }
 
+
     /**
      * @param CreateMerchantRequest $request
      * @return \Illuminate\Http\JsonResponse
@@ -109,6 +110,7 @@ class AuthController extends Controller
         }
     }
 
+
     /**
      * @param string $email
      * @param string $password
@@ -122,6 +124,7 @@ class AuthController extends Controller
         ]);
     }
 
+
     /**
      * @param User $user
      * @param string $roleName
@@ -134,4 +137,5 @@ class AuthController extends Controller
             $user->roles()->attach($role);
         }
     }
+
 }

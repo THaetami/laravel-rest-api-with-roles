@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Helpers\JsonResponseHelper;
 use App\Models\Customer;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
-        /**
+    /**
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
