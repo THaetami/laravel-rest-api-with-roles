@@ -18,7 +18,7 @@ class Product extends Model
     ];
 
     protected $hidden = [
-        'deleted_at'
+        'deleted_at',
     ];
 
     public function formatForApiResponse()

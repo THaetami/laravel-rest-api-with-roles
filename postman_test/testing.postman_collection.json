@@ -143,6 +143,253 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Customer Add Transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"quantity\": \"3\",\r\n        \"price\": \"250000\",\r\n        \"productId\": \"2\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/transactions",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Get All Transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/transactions?direction=asc&orderBy=trans_date&currentPage=2&pageSize=10",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "direction",
+									"value": "asc"
+								},
+								{
+									"key": "orderBy",
+									"value": "trans_date"
+								},
+								{
+									"key": "currentPage",
+									"value": "2"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Merchant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.environment.set('tokenUserCurrent', responseJson.data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{emailMerchant}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/auth/login",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Merchant Get History Transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/history?direction=desc&orderBy=trans_date&currentPage=1&pageSize=10",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"history"
+							],
+							"query": [
+								{
+									"key": "direction",
+									"value": "desc"
+								},
+								{
+									"key": "orderBy",
+									"value": "trans_date"
+								},
+								{
+									"key": "currentPage",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -240,7 +487,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Shampo rejoice\",\r\n    \"price\": \"500\",\r\n    \"stock\": \"450\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Beras rejoice 10kg\",\r\n    \"price\": \"250000\",\r\n    \"stock\": \"450\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -465,7 +712,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{protokol}}://{{domain}}/products?direction=asc&orderBy=stock&currentPage=1&pageSize=10",
+							"raw": "{{protokol}}://{{domain}}/products?direction=desc&orderBy=id&currentPage=1&pageSize=10",
 							"protocol": "{{protokol}}",
 							"host": [
 								"{{domain}}"
@@ -476,11 +723,11 @@
 							"query": [
 								{
 									"key": "direction",
-									"value": "asc"
+									"value": "desc"
 								},
 								{
 									"key": "orderBy",
-									"value": "stock"
+									"value": "id"
 								},
 								{
 									"key": "currentPage",
@@ -490,6 +737,107 @@
 									"key": "pageSize",
 									"value": "10"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All User Get Reward By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/rewards/3",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"rewards",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All User Get All Reward",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/rewards",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"rewards"
 							]
 						}
 					},
@@ -553,7 +901,7 @@
 					"response": []
 				},
 				{
-					"name": "Admin Get All Customers",
+					"name": "Admin Add Rewards",
 					"event": [
 						{
 							"listen": "test",
@@ -582,7 +930,126 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"imlek\",\r\n    \"point_reward\": \"2000\",\r\n    \"stock\": \"50\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/rewards",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"rewards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Update Rewards By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"kemerdekaan\",\r\n    \"point_reward\": \"10000\",\r\n    \"stock\": \"30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/rewards/4",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"rewards",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Delete Rewards By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Accept",
@@ -590,13 +1057,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{protokol}}://{{domain}}/customers",
+							"raw": "{{protokol}}://{{domain}}/rewards/1",
 							"protocol": "{{protokol}}",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
-								"customers"
+								"rewards",
+								"1"
 							]
 						}
 					},
@@ -647,6 +1115,172 @@
 							],
 							"path": [
 								"merchants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Get All Customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/customers",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REWARD",
+			"item": [
+				{
+					"name": "Login Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.environment.set('tokenUserCurrent', responseJson.data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{emailCustomer}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/auth/login",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Claim Rewards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUserCurrent}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reward_id\": \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protokol}}://{{domain}}/claim-rewards",
+							"protocol": "{{protokol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"claim-rewards"
 							]
 						}
 					},

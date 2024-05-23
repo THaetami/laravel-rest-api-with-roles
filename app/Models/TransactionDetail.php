@@ -16,6 +16,21 @@ class TransactionDetail extends Model
         'transaction_id'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
+    public function formatForApiResponse()
+    {
+        return [
+            'product_id' => $this->product_id,
+            'product_name' => $this->product->name,
+            'qty' => $this->qty,
+            'price' => $this->price,
+        ];
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

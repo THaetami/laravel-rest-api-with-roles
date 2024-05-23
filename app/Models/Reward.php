@@ -11,8 +11,13 @@ class Reward extends Model
 
     protected $fillable = [
         'name',
-        'point_required',
+        'point_reward',
         'stock'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
     ];
 
 }

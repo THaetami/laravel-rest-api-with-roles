@@ -6,21 +6,21 @@ use App\Helpers\JsonResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
-use App\Services\ProductService;
+use App\Services\PaginationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    protected $productService;
+    protected $paginationService;
 
     /**
-     * @param ProductService $productService
+     * @param PaginationService $paginationService
      */
-    public function __construct(ProductService $productService)
+    public function __construct(PaginationService $paginationService)
     {
-        $this->productService = $productService;
+        $this->paginationService = $paginationService;
     }
 
 
@@ -35,13 +35,15 @@ class ProductController extends Controller
         $currentPage = $request->input('currentPage', 1);
         $pageSize = $request->input('pageSize', 10);
 
-        $products = $this->productService->getAllProducts($direction, $orderBy, $currentPage, $pageSize);
+        $products = $this->paginationService->getAllProducts($direction, $orderBy, $currentPage, $pageSize);
 
         $formattedProducts = $products->map(function ($product) {
             return $product->formatForApiResponse();
         });
 
-        return JsonResponseHelper::respondSuccess($formattedProducts, 200);
+        $products->setCollection($formattedProducts);
+
+        return JsonResponseHelper::respondSuccess($products, 200);
     }
 
 
@@ -65,11 +67,10 @@ class ProductController extends Controller
             ]);
 
             DB::commit();
-
             return JsonResponseHelper::respondSuccess($product->formatForApiResponse(), 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return JsonResponseHelper::respondFail('Registration failed: ' . $e->getMessage(), 500);
+            return JsonResponseHelper::respondFail('Add product failed: ' . $e->getMessage(), 500);
         }
     }
 
@@ -80,7 +81,7 @@ class ProductController extends Controller
      */
     public function show(Request $request)
     {
-        $product = Product::where('id', $request->id)->first();
+        $product = Product::find($request->id);
         if(!$product) {
             return JsonResponseHelper::respondErrorNotFound('Product not found!');
         }
@@ -101,11 +102,7 @@ class ProductController extends Controller
             return JsonResponseHelper::respondErrorNotFound('Product not found!');
         }
 
-        $product->update([
-            'name' => $validated['name'],
-            'price' => $validated['price'],
-            'stock' => $validated['stock'],
-        ]);
+        $product->update($validated);
         return JsonResponseHelper::respondSuccess($product->formatForApiResponse(), 200);
     }
 

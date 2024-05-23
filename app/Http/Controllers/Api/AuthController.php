@@ -31,12 +31,11 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        $roles = $user->roles->pluck('name');
 
         return JsonResponseHelper::respondSuccess([
             'id' => $user->id,
             'email' => $user->email,
-            'roles' => $roles,
+            'roles' => $user->roles->pluck('name'),
             'token' => $token,
         ], 200);
     }
@@ -56,7 +55,7 @@ class AuthController extends Controller
             $user = $this->createUser($validated['email'], $validated['password']);
             $this->attachRole($user, 'customer');
 
-            $customer = Customer::create([
+            Customer::create([
                 'name' => $validated['name'],
                 'phone' => $validated['phone'],
                 'address' => $validated['address'],
